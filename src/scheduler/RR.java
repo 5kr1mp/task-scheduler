@@ -1,7 +1,6 @@
 package scheduler;
 
 import java.util.ArrayDeque;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import models.Task;
@@ -16,7 +15,7 @@ public class RR {
     int timeQuantum;
 
     public RR(int timeQuantum, Task... tasks){
-        this(timeQuantum, new LinkedList<>(java.util.Arrays.asList(tasks)));
+        this(timeQuantum, List.of(tasks));
     }
 
     public RR(int timeQuantum,List<Task> tasks){
