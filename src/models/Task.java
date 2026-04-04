@@ -40,6 +40,10 @@ public class Task {
     }
 
     public void runTask(){
-        task.func();
+        if (task != null){
+            task.func();
+        }
+
+        burstTime--;
     }
 }
