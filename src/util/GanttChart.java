@@ -1,6 +1,11 @@
 package util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GanttChart {
     
@@ -52,17 +57,44 @@ public class GanttChart {
     /**
      * Displays the gantt chart
      */
-    public void displayChart(){
-        dataList.stream().forEach(e -> {
-            System.out.printf("%s | %s%s\n",
-                e.description, 
-                " ".repeat(e.start),
-                "■".repeat(e.finish - e.start)    
-            );
-        });
+public void displayChart() {
+
+    // max finish time
+    int maxFinish = dataList.stream()
+        .mapToInt(e -> e.finish)
+        .max()
+        .orElse(0);
+
+    // get all pid
+    List<String> pidList = dataList.stream()
+        .map(data -> data.description)
+        .distinct()
+        .toList();
+
+    for (String pid : pidList){
+        char[] ganttRow = new char[maxFinish];
+
+        // fill row with empty spaces
+        Arrays.fill(ganttRow, ' ');
+
+        dataList.stream()
+            .filter(data -> data.description.equals(pid)) // search for pid
+            .forEach(slice -> {
+                for (int i = slice.start; i < slice.finish; i++){
+                    ganttRow[i] ='■';
+                }
+            });
+        
+        System.out.printf("%-4s | %s\n",pid, new String(ganttRow));
+
     }
+}
 
 
+    /**
+     * Represents execution time of a task, so with preemptive. The data may be
+     * repeated
+     */
     public static class GanttChartData{
         private String description;
         private int start, finish;
