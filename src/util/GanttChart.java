@@ -54,7 +54,7 @@ public class GanttChart {
      */
     public void displayChart(){
         dataList.stream().forEach(e -> {
-            System.out.printf("%s | %s%s",
+            System.out.printf("%s | %s%s\n",
                 e.description, 
                 " ".repeat(e.start),
                 "■".repeat(e.finish - e.start)    
