@@ -31,6 +31,8 @@ public class RR {
      *  {@link RR#timeQuantum} -> 0, then magloop.
      */
     public void run(){
+        System.out.println("------=== ! ! ! Round Robin Scheduler ! ! ! ===------");
+        System.out.println("Time Quantum: " + timeQuantum + "\n");
         int currentTime = 0;
         Task currentTask = null;
         int quantum = timeQuantum;
@@ -43,6 +45,7 @@ public class RR {
             tasks.removeIf(task -> {
                 if (task.getArrivalTime() == timeSnapshot){
                     executionQueue.offer(task);
+                    System.out.println("[T=" + timeSnapshot + "] Task " + task.getPid() + " arrived (burst: " + task.getBurstTime() + ")");
                     return true;
                 }
                 return false;
@@ -68,6 +71,7 @@ public class RR {
             // run task
             currentTask.runTask();
             quantum--;
+            System.out.println("[T=" + currentTime + "] running " + currentTask.getPid() + " | remaining: " + currentTask.getBurstTime() + " | quantum: " + quantum);
             
 
             // task is done or end of quantum
@@ -76,8 +80,10 @@ public class RR {
                 // enqueue again if task not done yet
                 if (quantum == 0 && currentTask.getBurstTime() > 0){
                     executionQueue.offer(currentTask);
+                    System.out.println("[T=" + currentTime + "] Task " + currentTask.getPid() + " enqueue usab");
                 }
 
+                System.out.println("[T=" + currentTime + "] Task " + currentTask.getPid() + " humana!!!");
                 currentTask = null;
                 quantum = timeQuantum;
             }
