@@ -15,7 +15,9 @@ public class GanttChart {
         this.dataList = dataList;
     }
 
-    public GanttChart(){}
+    public GanttChart(){
+        dataList = new ArrayList<>();
+    }
 
     /**
      * Returns a GanttChart object with the list of data

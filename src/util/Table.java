@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.List;
 import models.Task;
 
@@ -11,7 +12,9 @@ public class Table {
         this.tableDataList = tableDataList;
     }
 
-    public Table(){}
+    public Table(){
+        tableDataList = new ArrayList<>();
+    }
 
     /**
      * Returns a Table object with the list of data
